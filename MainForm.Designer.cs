@@ -10,7 +10,6 @@
         private System.Windows.Forms.RadioButton rbLitho;
         private System.Windows.Forms.RadioButton rbIntegration;
         private System.Windows.Forms.Button btnCalc;
-        private System.Windows.Forms.Button btnBatch;
         private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Panel panelTop;
@@ -27,7 +26,6 @@
         {
             this.panelTop = new System.Windows.Forms.Panel();
             this.btnCalc = new System.Windows.Forms.Button();
-            this.btnBatch = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbIntegration = new System.Windows.Forms.RadioButton();
             this.rbLitho = new System.Windows.Forms.RadioButton();
@@ -46,7 +44,6 @@
             // panelTop
             // 
             this.panelTop.Controls.Add(this.btnCalc);
-            this.panelTop.Controls.Add(this.btnBatch);
             this.panelTop.Controls.Add(this.groupBox1);
             this.panelTop.Controls.Add(this.btnBrowse);
             this.panelTop.Controls.Add(this.txtFile);
@@ -66,16 +63,6 @@
             this.btnCalc.Text = "统计";
             this.btnCalc.UseVisualStyleBackColor = true;
             this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
-            // 
-            // btnBatch
-            // 
-            this.btnBatch.Location = new System.Drawing.Point(680, 16);
-            this.btnBatch.Name = "btnBatch";
-            this.btnBatch.Size = new System.Drawing.Size(130, 28);
-            this.btnBatch.TabIndex = 5;
-            this.btnBatch.Text = "批量处理";
-            this.btnBatch.UseVisualStyleBackColor = true;
-            this.btnBatch.Click += new System.EventHandler(this.btnBatch_Click);
             // 
             // groupBox1
             // 
