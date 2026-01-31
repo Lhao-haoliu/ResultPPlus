@@ -1,0 +1,12 @@
+﻿{
+  "Integration": {
+    "SheetName": "data",
+    "Mappings": {
+      "OCR-Layer": "L",
+      "OCR-Name": "V",
+      "公版图比对": "AE",
+      "量测": "AN",
+      "平滑度检测": "AS"
+    }
+  }
+}
