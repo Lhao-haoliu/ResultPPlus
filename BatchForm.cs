@@ -45,7 +45,10 @@ namespace ResultPPlus
                 return;
             }
 
-            var files = Directory.GetFiles(folder, "*.xlsx").OrderBy(f => f).ToList();
+            var files = Directory.GetFiles(folder, "*.xlsx")
+                .OrderBy(f => File.GetLastWriteTime(f))
+                .ThenBy(f => f)
+                .ToList();
             if (files.Count == 0)
             {
                 MessageBox.Show("该文件夹内没有找到 xlsx 文件。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
