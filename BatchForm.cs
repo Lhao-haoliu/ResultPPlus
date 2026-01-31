@@ -139,8 +139,23 @@ namespace ResultPPlus
             chartArea.AxisX.Interval = 1;
             chartArea.AxisX.MajorGrid.LineColor = Color.LightGray;
             chartArea.AxisY.MajorGrid.LineColor = Color.LightGray;
-            chartArea.AxisY.Minimum = 0;
-            chartArea.AxisY.Maximum = 100;
+            var rates = _results
+                .SelectMany(r => r.Rows)
+                .Where(r => !string.Equals(r.Type, "总计", StringComparison.OrdinalIgnoreCase))
+                .Select(r => r.SuccessRateValue)
+                .ToList();
+            var minRate = rates.Count > 0 ? rates.Min() : 0;
+            var maxRate = rates.Count > 0 ? rates.Max() : 100;
+            var paddedMin = Math.Max(0, Math.Floor(minRate / 5) * 5 - 5);
+            var paddedMax = Math.Min(100, Math.Ceiling(maxRate / 5) * 5 + 5);
+            if (paddedMax - paddedMin < 10)
+            {
+                paddedMin = Math.Max(0, paddedMin - 5);
+                paddedMax = Math.Min(100, paddedMax + 5);
+            }
+            chartArea.AxisY.Minimum = paddedMin;
+            chartArea.AxisY.Maximum = paddedMax;
+            chartArea.AxisY.Interval = 5;
             chartArea.AxisY.Title = "成功率 (%)";
             chartCompare.ChartAreas.Add(chartArea);
 
