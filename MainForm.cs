@@ -34,6 +34,14 @@ namespace ResultPPlus
             }
         }
 
+        private void btnBatch_Click(object sender, EventArgs e)
+        {
+            using (var form = new BatchForm())
+            {
+                form.ShowDialog(this);
+            }
+        }
+
         private void btnCalc_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(_filePath) || !File.Exists(_filePath))

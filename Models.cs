@@ -6,6 +6,7 @@
         public int TrueCount { get; set; }
         public int FalseCount { get; set; }
         public int Total => TrueCount + FalseCount;
+        public double SuccessRateValue => Total <= 0 ? 0 : (double)TrueCount / Total * 100;
         public string SuccessRate =>
             Total <= 0 ? "0.00%" : ((double)TrueCount / Total).ToString("P2");
     }
