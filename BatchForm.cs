@@ -139,29 +139,40 @@ namespace ResultPPlus
             chartArea.AxisX.Interval = 1;
             chartArea.AxisX.MajorGrid.LineColor = Color.LightGray;
             chartArea.AxisY.MajorGrid.LineColor = Color.LightGray;
-            var rates = _results
-                .SelectMany(r => r.Rows)
-                .Where(r => !string.Equals(r.Type, "总计", StringComparison.OrdinalIgnoreCase))
-                .Select(r => r.SuccessRateValue)
-                .ToList();
-            var minRate = rates.Count > 0 ? rates.Min() : 0;
-            var maxRate = rates.Count > 0 ? rates.Max() : 100;
-            var paddedMin = Math.Max(0, Math.Floor(minRate / 5) * 5 - 5);
-            var paddedMax = Math.Min(100, Math.Ceiling(maxRate / 5) * 5 + 5);
-            if (paddedMax - paddedMin < 10)
-            {
-                paddedMin = Math.Max(0, paddedMin - 5);
-                paddedMax = Math.Min(100, paddedMax + 5);
-            }
-            chartArea.AxisY.Minimum = paddedMin;
-            chartArea.AxisY.Maximum = paddedMax;
-            chartArea.AxisY.Interval = 5;
+            chartArea.AxisY.Minimum = 0;
+            chartArea.AxisY.Maximum = 100;
+            chartArea.AxisY.Interval = 10;
+            chartArea.AxisY.CustomLabels.Clear();
+            chartArea.AxisY.MajorGrid.Interval = 10;
+            chartArea.AxisY.MinorGrid.Enabled = false;
+            chartArea.AxisY.LabelStyle.Enabled = false;
             chartArea.AxisY.Title = "成功率 (%)";
             chartCompare.ChartAreas.Add(chartArea);
 
             var legend = new Legend();
             legend.Docking = Docking.Top;
             chartCompare.Legends.Add(legend);
+
+            double TransformRate(double value)
+            {
+                if (value <= 70)
+                {
+                    return value * (50.0 / 70.0);
+                }
+                return 50.0 + (value - 70.0) * (50.0 / 30.0);
+            }
+
+            void AddAxisLabel(double actualValue)
+            {
+                var pos = TransformRate(actualValue);
+                var label = new CustomLabel(pos - 1, pos + 1, actualValue.ToString("F0"), 0, LabelMarkStyle.None);
+                chartArea.AxisY.CustomLabels.Add(label);
+            }
+
+            foreach (var tick in new[] { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 })
+            {
+                AddAxisLabel(tick);
+            }
 
             var allTypes = _results
                 .SelectMany(r => r.Rows)
@@ -186,7 +197,7 @@ namespace ResultPPlus
                     var row = result.Rows.FirstOrDefault(r => string.Equals(r.Type, type, StringComparison.OrdinalIgnoreCase));
                     if (row == null) continue;
 
-                    var pointIndex = series.Points.AddY(row.SuccessRateValue);
+                    var pointIndex = series.Points.AddY(TransformRate(row.SuccessRateValue));
                     series.Points[pointIndex].AxisLabel = result.FileName;
                     series.Points[pointIndex].Label = $"{row.SuccessRateValue:F2}%";
                 }

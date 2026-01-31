@@ -159,6 +159,7 @@ namespace ResultPPlus
             this.dgv.Location = new System.Drawing.Point(0, 0);
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
+            this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 23;
             this.dgv.Size = new System.Drawing.Size(1200, 300);
             this.dgv.TabIndex = 0;
@@ -225,6 +226,14 @@ namespace ResultPPlus
             this.dgv.Columns["FalseCount"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dgv.Columns["Total"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dgv.Columns["SuccessRate"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+
+            this.dgv.Columns["File"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dgv.Columns["Type"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgv.Columns["TrueCount"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgv.Columns["FalseCount"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgv.Columns["Total"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgv.Columns["SuccessRate"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgv.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
         }
     }
 }
