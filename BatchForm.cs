@@ -265,8 +265,22 @@ namespace ResultPPlus
                 dgvSummary.Columns["File"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgvSummary.Columns["TotalCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 dgvSummary.Columns["TotalTrue"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dgvSummary.Columns["TotalFalse"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 dgvSummary.Columns["SuccessRate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvSummary.Columns["TotalFalse"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvSummary.Columns["File"].DisplayIndex = 0;
+                dgvSummary.Columns["TotalCount"].DisplayIndex = 1;
+                dgvSummary.Columns["TotalTrue"].DisplayIndex = 2;
+                dgvSummary.Columns["SuccessRate"].DisplayIndex = 3;
+                dgvSummary.Columns["TotalFalse"].DisplayIndex = 4;
+                dgvSummary.Columns["File"].Frozen = true;
+                dgvSummary.Columns["TotalCount"].Frozen = true;
+                dgvSummary.Columns["TotalTrue"].Frozen = true;
+                dgvSummary.Columns["SuccessRate"].Frozen = true;
+                dgvSummary.Columns["TotalFalse"].Frozen = true;
+                dgvSummary.Columns["TotalCount"].MinimumWidth = 90;
+                dgvSummary.Columns["TotalTrue"].MinimumWidth = 90;
+                dgvSummary.Columns["TotalFalse"].MinimumWidth = 90;
+                dgvSummary.Columns["SuccessRate"].MinimumWidth = 90;
                 foreach (DataGridViewColumn column in dgvSummary.Columns)
                 {
                     if (column.Name == "File")
