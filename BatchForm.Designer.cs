@@ -172,6 +172,8 @@ namespace ResultPPlus
             this.dgvSummary.Name = "dgvSummary";
             this.dgvSummary.ReadOnly = true;
             this.dgvSummary.RowHeadersVisible = false;
+            this.dgvSummary.MultiSelect = false;
+            this.dgvSummary.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSummary.RowTemplate.Height = 23;
             this.dgvSummary.Size = new System.Drawing.Size(1200, 260);
             this.dgvSummary.TabIndex = 0;
@@ -210,6 +212,8 @@ namespace ResultPPlus
             this.dgvDetail.Name = "dgvDetail";
             this.dgvDetail.ReadOnly = true;
             this.dgvDetail.RowHeadersVisible = false;
+            this.dgvDetail.MultiSelect = false;
+            this.dgvDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetail.RowTemplate.Height = 23;
             this.dgvDetail.Size = new System.Drawing.Size(1186, 248);
             this.dgvDetail.TabIndex = 0;

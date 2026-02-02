@@ -124,6 +124,13 @@ namespace ResultPPlus
                 }
 
                 lblStatus.Text = "批量统计完成";
+
+                if (rbIntegration.Checked && dgvSummary.Rows.Count > 0)
+                {
+                    dgvSummary.ClearSelection();
+                    dgvSummary.Rows[0].Selected = true;
+                    dgvSummary_SelectionChanged(dgvSummary, EventArgs.Empty);
+                }
             }
             finally
             {
