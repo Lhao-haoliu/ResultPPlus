@@ -7,6 +7,7 @@ namespace ResultPPlus
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnSingle;
         private System.Windows.Forms.Button btnBatch;
+        private System.Windows.Forms.Button btnWriteBack;
 
         protected override void Dispose(bool disposing)
         {
@@ -27,11 +28,12 @@ namespace ResultPPlus
             // 
             this.panelMain.Controls.Add(this.btnBatch);
             this.panelMain.Controls.Add(this.btnSingle);
+            this.panelMain.Controls.Add(this.btnWriteBack);
             this.panelMain.Controls.Add(this.lblTitle);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(520, 260);
+            this.panelMain.Size = new System.Drawing.Size(520, 300);
             this.panelMain.TabIndex = 0;
             // 
             // btnBatch
@@ -43,6 +45,16 @@ namespace ResultPPlus
             this.btnBatch.Text = "批量统计";
             this.btnBatch.UseVisualStyleBackColor = true;
             this.btnBatch.Click += new System.EventHandler(this.btnBatch_Click);
+            // 
+            // btnWriteBack
+            // 
+            this.btnWriteBack.Location = new System.Drawing.Point(180, 200);
+            this.btnWriteBack.Name = "btnWriteBack";
+            this.btnWriteBack.Size = new System.Drawing.Size(160, 40);
+            this.btnWriteBack.TabIndex = 3;
+            this.btnWriteBack.Text = "异常回写";
+            this.btnWriteBack.UseVisualStyleBackColor = true;
+            this.btnWriteBack.Click += new System.EventHandler(this.btnWriteBack_Click);
             // 
             // btnSingle
             // 
@@ -69,7 +81,7 @@ namespace ResultPPlus
             // StartForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 260);
+            this.ClientSize = new System.Drawing.Size(520, 300);
             this.Controls.Add(this.panelMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;

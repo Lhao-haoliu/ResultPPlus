@@ -132,6 +132,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="ErrorWriteBackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ErrorWriteBackForm.Designer.cs">
+      <DependentUpon>ErrorWriteBackForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BatchForm.cs">
       <SubType>Form</SubType>
     </Compile>

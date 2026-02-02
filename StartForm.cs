@@ -25,5 +25,13 @@ namespace ResultPPlus
                 form.ShowDialog(this);
             }
         }
+
+        private void btnWriteBack_Click(object sender, EventArgs e)
+        {
+            using (var form = new ErrorWriteBackForm())
+            {
+                form.ShowDialog(this);
+            }
+        }
     }
 }
