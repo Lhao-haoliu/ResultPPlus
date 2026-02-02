@@ -19,6 +19,7 @@ namespace ResultPPlus
         {
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnBatch = new System.Windows.Forms.Button();
+            this.btnWriteBack = new System.Windows.Forms.Button();
             this.btnSingle = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
