@@ -220,7 +220,15 @@ namespace ResultPPlus
                             var targetCell = ws.Cell(row.RowNumber, messageCol);
                             if (config.ClearDataValidation)
                             {
-                                try { targetCell.DataValidation.Clear(); } catch { }
+                                try
+                                {
+                                    var dataValidation = targetCell.GetDataValidation();
+                                    if (dataValidation != null)
+                                    {
+                                        dataValidation.Clear();
+                                    }
+                                }
+                                catch { }
                             }
 
                             var existing = targetCell.GetString();
