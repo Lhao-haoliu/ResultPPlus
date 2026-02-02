@@ -252,7 +252,10 @@ namespace ResultPPlus
                 if (cfg.Integration.Mappings == null) cfg.Integration.Mappings = AppConfig.Default().Integration.Mappings;
 
                 dgvSummary.Columns.Add("File", "文件");
+                dgvSummary.Columns.Add("TotalCount", "总数量");
+                dgvSummary.Columns.Add("TotalTrue", "总成功数");
                 dgvSummary.Columns.Add("TotalFalse", "总失败数");
+                dgvSummary.Columns.Add("SuccessRate", "成功率");
 
                 foreach (var item in cfg.Integration.Mappings.Keys)
                 {
@@ -260,7 +263,10 @@ namespace ResultPPlus
                 }
 
                 dgvSummary.Columns["File"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvSummary.Columns["TotalCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvSummary.Columns["TotalTrue"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 dgvSummary.Columns["TotalFalse"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvSummary.Columns["SuccessRate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 foreach (DataGridViewColumn column in dgvSummary.Columns)
                 {
                     if (column.Name == "File")
@@ -310,9 +316,13 @@ namespace ResultPPlus
 
             var fileName = Path.GetFileName(file);
             var itemRows = rows.Where(r => !string.Equals(r.Type, "总计", StringComparison.OrdinalIgnoreCase)).ToList();
+            var totalRow = rows.FirstOrDefault(r => string.Equals(r.Type, "总计", StringComparison.OrdinalIgnoreCase));
+            var totalCount = totalRow?.Total ?? itemRows.Sum(r => r.Total);
+            var totalTrue = totalRow?.TrueCount ?? itemRows.Sum(r => r.TrueCount);
             var totalFalse = itemRows.Sum(r => r.FalseCount);
-            var values = new List<object> { fileName, totalFalse };
-            foreach (var item in dgvSummary.Columns.Cast<DataGridViewColumn>().Skip(2))
+            var successRate = totalCount <= 0 ? "0.00%" : ((double)totalTrue / totalCount).ToString("P2");
+            var values = new List<object> { fileName, totalCount, totalTrue, totalFalse, successRate };
+            foreach (var item in dgvSummary.Columns.Cast<DataGridViewColumn>().Skip(5))
             {
                 var row = itemRows.FirstOrDefault(r => string.Equals(r.Type, item.Name, StringComparison.OrdinalIgnoreCase));
                 values.Add(row?.FalseCount ?? 0);
