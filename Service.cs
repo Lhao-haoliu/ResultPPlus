@@ -267,6 +267,91 @@ namespace ResultPPlus
             return rows;
         }
 
+        public static IntegrationDetailResult CalcIntegrationDetailed(string xlsxPath, AppConfig cfg)
+        {
+            cfg = cfg ?? AppConfig.Default();
+            if (cfg.Integration == null) cfg.Integration = AppConfig.Default().Integration;
+            if (cfg.Integration.Mappings == null) cfg.Integration.Mappings = AppConfig.Default().Integration.Mappings;
+
+            var rows = new List<StatRow>();
+            var errorSummary = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+            using (var wb = new XLWorkbook(xlsxPath))
+            {
+                string sheetName = string.IsNullOrWhiteSpace(cfg.Integration.SheetName) ? "data" : cfg.Integration.SheetName;
+                var ws = wb.Worksheets.FirstOrDefault(s => string.Equals(s.Name, sheetName, StringComparison.OrdinalIgnoreCase));
+
+                if (ws == null)
+                {
+                    foreach (var kv in cfg.Integration.Mappings)
+                        rows.Add(new StatRow { Type = kv.Key, TrueCount = 0, FalseCount = 0 });
+
+                    rows.Add(MakeTotal(rows, "总计"));
+                    return new IntegrationDetailResult { Rows = rows, ErrorSummary = new List<ErrorSummaryRow>() };
+                }
+
+                int lastRow = ws.LastRowUsed()?.RowNumber() ?? 1;
+
+                foreach (var kv in cfg.Integration.Mappings)
+                {
+                    var stat = new StatRow { Type = kv.Key, TrueCount = 0, FalseCount = 0 };
+
+                    int colNum = ColLetterToNumber(kv.Value);
+                    if (colNum <= 0)
+                    {
+                        rows.Add(stat);
+                        continue;
+                    }
+
+                    for (int r = 1; r <= lastRow; r++)
+                    {
+                        var cell = ws.Cell(r, colNum);
+                        if (cell.IsEmpty()) continue;
+
+                        if (TryParseBool(cell.Value, out bool b))
+                        {
+                            if (b)
+                            {
+                                stat.TrueCount++;
+                            }
+                            else
+                            {
+                                stat.FalseCount++;
+                                var typeCell = ws.Cell(r, 2);
+                                var type = typeCell?.GetString()?.Trim();
+                                if (string.IsNullOrWhiteSpace(type))
+                                    type = "未知类型";
+
+                                var key = kv.Key + "||" + type;
+                                errorSummary[key] = errorSummary.TryGetValue(key, out int count) ? count + 1 : 1;
+                            }
+                        }
+                    }
+
+                    rows.Add(stat);
+                }
+            }
+
+            rows.Add(MakeTotal(rows, "总计"));
+
+            var summaryRows = errorSummary
+                .Select(kv =>
+                {
+                    var parts = kv.Key.Split(new[] { "||" }, StringSplitOptions.None);
+                    return new ErrorSummaryRow
+                    {
+                        Item = parts.Length > 0 ? parts[0] : "未知项",
+                        Type = parts.Length > 1 ? parts[1] : "未知类型",
+                        Count = kv.Value
+                    };
+                })
+                .OrderBy(r => r.Item)
+                .ThenBy(r => r.Type)
+                .ToList();
+
+            return new IntegrationDetailResult { Rows = rows, ErrorSummary = summaryRows };
+        }
+
         private static StatRow MakeTotal(IEnumerable<StatRow> items, string name)
         {
             int t = 0, f = 0;

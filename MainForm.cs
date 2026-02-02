@@ -49,21 +49,31 @@ namespace ResultPPlus
                 dgv.Rows.Clear();
 
                 List<StatRow> rows;
+                List<ErrorSummaryRow> errorSummary = new List<ErrorSummaryRow>();
 
                 if (rbLitho.Checked)
                 {
                     rows = StatServices.CalcLitho(_filePath);
+                    dgvErrors.Rows.Clear();
                 }
                 else
                 {
                     var cfgPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
                     var cfg = AppConfig.LoadOrDefault(cfgPath);
-                    rows = StatServices.CalcIntegration(_filePath, cfg);
+                    var detail = StatServices.CalcIntegrationDetailed(_filePath, cfg);
+                    rows = detail.Rows;
+                    errorSummary = detail.ErrorSummary;
                 }
 
                 foreach (var r in rows)
                 {
                     dgv.Rows.Add(r.Type, r.TrueCount, r.FalseCount, r.Total, r.SuccessRate);
+                }
+
+                dgvErrors.Rows.Clear();
+                foreach (var item in errorSummary)
+                {
+                    dgvErrors.Rows.Add(item.Item, item.Type, item.Count);
                 }
 
                 // 总计行加粗

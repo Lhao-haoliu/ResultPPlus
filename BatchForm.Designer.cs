@@ -13,7 +13,11 @@ namespace ResultPPlus
         private System.Windows.Forms.RadioButton rbIntegration;
         private System.Windows.Forms.Button btnProcess;
         private System.Windows.Forms.Button btnCompare;
-        private System.Windows.Forms.DataGridView dgv;
+        private System.Windows.Forms.DataGridView dgvSummary;
+        private System.Windows.Forms.DataGridView dgvDetail;
+        private System.Windows.Forms.TabControl tabBottom;
+        private System.Windows.Forms.TabPage tabPageDetail;
+        private System.Windows.Forms.TabPage tabPageChart;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label labelFolder;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCompare;
@@ -36,14 +40,22 @@ namespace ResultPPlus
             this.txtFolder = new System.Windows.Forms.TextBox();
             this.labelFolder = new System.Windows.Forms.Label();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.dgv = new System.Windows.Forms.DataGridView();
+            this.dgvSummary = new System.Windows.Forms.DataGridView();
+            this.tabBottom = new System.Windows.Forms.TabControl();
+            this.tabPageDetail = new System.Windows.Forms.TabPage();
+            this.dgvDetail = new System.Windows.Forms.DataGridView();
+            this.tabPageChart = new System.Windows.Forms.TabPage();
             this.chartCompare = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.lblStatus = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
             this.groupBoxType.SuspendLayout();
             this.panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSummary)).BeginInit();
+            this.tabBottom.SuspendLayout();
+            this.tabPageDetail.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDetail)).BeginInit();
+            this.tabPageChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCompare)).BeginInit();
             this.panelBottom.SuspendLayout();
             this.SuspendLayout();
@@ -141,36 +153,85 @@ namespace ResultPPlus
             // 
             // panelMain
             // 
-            this.panelMain.Controls.Add(this.chartCompare);
-            this.panelMain.Controls.Add(this.dgv);
+            this.panelMain.Controls.Add(this.tabBottom);
+            this.panelMain.Controls.Add(this.dgvSummary);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 120);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(1200, 540);
             this.panelMain.TabIndex = 1;
             // 
-            // dgv
+            // dgvSummary
             // 
-            this.dgv.AllowUserToAddRows = false;
-            this.dgv.AllowUserToDeleteRows = false;
-            this.dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.None;
-            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgv.Location = new System.Drawing.Point(0, 0);
-            this.dgv.Name = "dgv";
-            this.dgv.ReadOnly = true;
-            this.dgv.RowHeadersVisible = false;
-            this.dgv.RowTemplate.Height = 23;
-            this.dgv.Size = new System.Drawing.Size(1200, 300);
-            this.dgv.TabIndex = 0;
+            this.dgvSummary.AllowUserToAddRows = false;
+            this.dgvSummary.AllowUserToDeleteRows = false;
+            this.dgvSummary.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.None;
+            this.dgvSummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSummary.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dgvSummary.Location = new System.Drawing.Point(0, 0);
+            this.dgvSummary.Name = "dgvSummary";
+            this.dgvSummary.ReadOnly = true;
+            this.dgvSummary.RowHeadersVisible = false;
+            this.dgvSummary.RowTemplate.Height = 23;
+            this.dgvSummary.Size = new System.Drawing.Size(1200, 260);
+            this.dgvSummary.TabIndex = 0;
+            this.dgvSummary.SelectionChanged += new System.EventHandler(this.dgvSummary_SelectionChanged);
+            // 
+            // tabBottom
+            // 
+            this.tabBottom.Controls.Add(this.tabPageDetail);
+            this.tabBottom.Controls.Add(this.tabPageChart);
+            this.tabBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabBottom.Location = new System.Drawing.Point(0, 260);
+            this.tabBottom.Name = "tabBottom";
+            this.tabBottom.SelectedIndex = 0;
+            this.tabBottom.Size = new System.Drawing.Size(1200, 280);
+            this.tabBottom.TabIndex = 1;
+            // 
+            // tabPageDetail
+            // 
+            this.tabPageDetail.Controls.Add(this.dgvDetail);
+            this.tabPageDetail.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDetail.Name = "tabPageDetail";
+            this.tabPageDetail.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDetail.Size = new System.Drawing.Size(1192, 254);
+            this.tabPageDetail.TabIndex = 0;
+            this.tabPageDetail.Text = "错误明细";
+            this.tabPageDetail.UseVisualStyleBackColor = true;
+            // 
+            // dgvDetail
+            // 
+            this.dgvDetail.AllowUserToAddRows = false;
+            this.dgvDetail.AllowUserToDeleteRows = false;
+            this.dgvDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.None;
+            this.dgvDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvDetail.Location = new System.Drawing.Point(3, 3);
+            this.dgvDetail.Name = "dgvDetail";
+            this.dgvDetail.ReadOnly = true;
+            this.dgvDetail.RowHeadersVisible = false;
+            this.dgvDetail.RowTemplate.Height = 23;
+            this.dgvDetail.Size = new System.Drawing.Size(1186, 248);
+            this.dgvDetail.TabIndex = 0;
+            // 
+            // tabPageChart
+            // 
+            this.tabPageChart.Controls.Add(this.chartCompare);
+            this.tabPageChart.Location = new System.Drawing.Point(4, 22);
+            this.tabPageChart.Name = "tabPageChart";
+            this.tabPageChart.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageChart.Size = new System.Drawing.Size(1192, 254);
+            this.tabPageChart.TabIndex = 1;
+            this.tabPageChart.Text = "成功率对比";
+            this.tabPageChart.UseVisualStyleBackColor = true;
             // 
             // chartCompare
             // 
             this.chartCompare.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartCompare.Location = new System.Drawing.Point(0, 300);
+            this.chartCompare.Location = new System.Drawing.Point(3, 3);
             this.chartCompare.Name = "chartCompare";
-            this.chartCompare.Size = new System.Drawing.Size(1200, 240);
-            this.chartCompare.TabIndex = 1;
+            this.chartCompare.Size = new System.Drawing.Size(1186, 248);
+            this.chartCompare.TabIndex = 0;
             // 
             // panelBottom
             // 
@@ -206,34 +267,14 @@ namespace ResultPPlus
             this.groupBoxType.ResumeLayout(false);
             this.groupBoxType.PerformLayout();
             this.panelMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSummary)).EndInit();
+            this.tabBottom.ResumeLayout(false);
+            this.tabPageDetail.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDetail)).EndInit();
+            this.tabPageChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartCompare)).EndInit();
             this.panelBottom.ResumeLayout(false);
             this.ResumeLayout(false);
-
-            // DataGridView 列
-            this.dgv.Columns.Clear();
-            this.dgv.Columns.Add("File", "文件");
-            this.dgv.Columns.Add("Type", "类型");
-            this.dgv.Columns.Add("TrueCount", "TRUE");
-            this.dgv.Columns.Add("FalseCount", "FALSE");
-            this.dgv.Columns.Add("Total", "TOTAL");
-            this.dgv.Columns.Add("SuccessRate", "成功率");
-
-            this.dgv.Columns["File"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgv.Columns["Type"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dgv.Columns["TrueCount"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dgv.Columns["FalseCount"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dgv.Columns["Total"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dgv.Columns["SuccessRate"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-
-            this.dgv.Columns["File"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dgv.Columns["Type"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgv.Columns["TrueCount"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgv.Columns["FalseCount"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgv.Columns["Total"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgv.Columns["SuccessRate"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgv.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
         }
     }
 }
