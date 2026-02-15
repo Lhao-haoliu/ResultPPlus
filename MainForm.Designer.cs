@@ -1,4 +1,4 @@
-﻿namespace ResultPPlus
+namespace ResultPPlus
 {
     partial class MainForm
     {
@@ -11,10 +11,14 @@
         private System.Windows.Forms.RadioButton rbIntegration;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.DataGridView dgv;
+        private System.Windows.Forms.DataGridView dgvErrors;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Panel panelBottom;
+        private System.Windows.Forms.Panel panelMain;
+        private System.Windows.Forms.SplitContainer splitMain;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBoxErrors;
 
         protected override void Dispose(bool disposing)
         {
@@ -32,12 +36,23 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panelMain = new System.Windows.Forms.Panel();
+            this.splitMain = new System.Windows.Forms.SplitContainer();
             this.dgv = new System.Windows.Forms.DataGridView();
+            this.groupBoxErrors = new System.Windows.Forms.GroupBox();
+            this.dgvErrors = new System.Windows.Forms.DataGridView();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.lblStatus = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
+            this.splitMain.Panel1.SuspendLayout();
+            this.splitMain.Panel2.SuspendLayout();
+            this.splitMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
+            this.groupBoxErrors.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvErrors)).BeginInit();
             this.panelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,6 +136,33 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Excel：";
             // 
+            // panelMain
+            // 
+            this.panelMain.Controls.Add(this.splitMain);
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(0, 120);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(984, 411);
+            this.panelMain.TabIndex = 1;
+            // 
+            // splitMain
+            // 
+            this.splitMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitMain.Location = new System.Drawing.Point(0, 0);
+            this.splitMain.Name = "splitMain";
+            this.splitMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitMain.Panel1
+            // 
+            this.splitMain.Panel1.Controls.Add(this.dgv);
+            // 
+            // splitMain.Panel2
+            // 
+            this.splitMain.Panel2.Controls.Add(this.groupBoxErrors);
+            this.splitMain.Size = new System.Drawing.Size(984, 411);
+            this.splitMain.SplitterDistance = 240;
+            this.splitMain.TabIndex = 0;
+            // 
             // dgv
             // 
             this.dgv.AllowUserToAddRows = false;
@@ -128,12 +170,38 @@
             this.dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv.Location = new System.Drawing.Point(0, 120);
+            this.dgv.Location = new System.Drawing.Point(0, 0);
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.RowTemplate.Height = 23;
-            this.dgv.Size = new System.Drawing.Size(984, 411);
-            this.dgv.TabIndex = 1;
+            this.dgv.Size = new System.Drawing.Size(984, 240);
+            this.dgv.TabIndex = 0;
+            // 
+            // groupBoxErrors
+            // 
+            this.groupBoxErrors.Controls.Add(this.dgvErrors);
+            this.groupBoxErrors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxErrors.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxErrors.Name = "groupBoxErrors";
+            this.groupBoxErrors.Size = new System.Drawing.Size(984, 167);
+            this.groupBoxErrors.TabIndex = 0;
+            this.groupBoxErrors.TabStop = false;
+            this.groupBoxErrors.Text = "错误明细";
+            // 
+            // dgvErrors
+            // 
+            this.dgvErrors.AllowUserToAddRows = false;
+            this.dgvErrors.AllowUserToDeleteRows = false;
+            this.dgvErrors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.None;
+            this.dgvErrors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvErrors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvErrors.Location = new System.Drawing.Point(3, 17);
+            this.dgvErrors.Name = "dgvErrors";
+            this.dgvErrors.ReadOnly = true;
+            this.dgvErrors.RowHeadersVisible = false;
+            this.dgvErrors.RowTemplate.Height = 23;
+            this.dgvErrors.Size = new System.Drawing.Size(978, 147);
+            this.dgvErrors.TabIndex = 0;
             // 
             // panelBottom
             // 
@@ -159,7 +227,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
-            this.Controls.Add(this.dgv);
+            this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
             this.Name = "MainForm";
@@ -168,7 +236,14 @@
             this.panelTop.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panelMain.ResumeLayout(false);
+            this.splitMain.Panel1.ResumeLayout(false);
+            this.splitMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitMain)).EndInit();
+            this.splitMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
+            this.groupBoxErrors.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvErrors)).EndInit();
             this.panelBottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -179,6 +254,19 @@
             this.dgv.Columns.Add("FalseCount", "FALSE");
             this.dgv.Columns.Add("Total", "TOTAL");
             this.dgv.Columns.Add("SuccessRate", "成功率");
+
+            this.dgvErrors.Columns.Clear();
+            this.dgvErrors.Columns.Add("Item", "检测项");
+            this.dgvErrors.Columns.Add("Type", "类型");
+            this.dgvErrors.Columns.Add("Count", "次数");
+
+            this.dgvErrors.Columns["Item"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgvErrors.Columns["Type"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dgvErrors.Columns["Count"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dgvErrors.Columns["Item"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dgvErrors.Columns["Type"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvErrors.Columns["Count"].DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgvErrors.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
         }
     }
 }

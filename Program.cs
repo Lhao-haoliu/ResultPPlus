@@ -10,7 +10,7 @@ namespace ResultPPlus
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm()); // ← 这里
+            Application.Run(new StartForm());
         }
     }
 }
